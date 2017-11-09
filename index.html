@@ -130,6 +130,23 @@
           </li>
           <li>
                 <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#status-codes" class="toc-h2 toc-link" data-title="Status Codes">Status Codes</a>
+                  </li>
+                  <li>
+                    <a href="#general-errors" class="toc-h2 toc-link" data-title="General Errors">General Errors</a>
+                  </li>
+                  <li>
+                    <a href="#general-error-codes" class="toc-h2 toc-link" data-title="General Error Codes">General Error Codes</a>
+                  </li>
+                  <li>
+                    <a href="#validation-errors" class="toc-h2 toc-link" data-title="Validation Errors">Validation Errors</a>
+                  </li>
+                  <li>
+                    <a href="#field-error-codes" class="toc-h2 toc-link" data-title="Field Error Codes">Field Error Codes</a>
+                  </li>
+              </ul>
           </li>
           <li>
                 <a href="#versions" class="toc-h1 toc-link" data-title="Versions">Versions</a>
@@ -206,18 +223,18 @@ are available in Java, Go, PHP, JavaScript, Python, and C#.</p>
  to <code>http://consumer.domain.com/handler</code>:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"93598235283502398502398"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"tries"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"hex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01000000019a9aa57825106e72c92c0c771b88a9f7bbdd399d12e405e29757964f9a387ef0000000006b483045022100fdac2e51068717da7f564ae676d84f04aa6e5157b72c168301809518bc8e733902200b39ba9d0ee8cd0c5f0ed7a4d51ec2aaf5976252aeca6ffd5b9794076898c463012102892589b5b0e2751bd2500a71f06b2d851439678eb0e976be5b5a0cc8f3e49895ffffffff021caa3900000000001976a914ddaccd2403cfffad5936ca66c2c6a7c98146936888ac9b593001000000001976a91461752641b0bf1cecd08341224f83e690853abd0588ac00000000"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"txid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fdcd3564c09ddd33dafd9d1bd2f5dc583f8c818fff631397c7f6d0d12ecf17b4"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fdcd3564c09ddd33dafd9d1bd2f5dc583f8c818fff631397c7f6d0d12ecf17b4"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">226</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"vsize"</span><span class="p">:</span><span class="w"> </span><span class="mi">226</span><span class="p">,</span><span class="w">
-        </span><span class="err">...</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"93598235283502398502398"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tries"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"hex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01000000019a9aa57825106e72c92c0c771b88a9f7bbdd399d12e405e29757964f9a387ef0000000006b483045022100fdac2e51068717da7f564ae676d84f04aa6e5157b72c168301809518bc8e733902200b39ba9d0ee8cd0c5f0ed7a4d51ec2aaf5976252aeca6ffd5b9794076898c463012102892589b5b0e2751bd2500a71f06b2d851439678eb0e976be5b5a0cc8f3e49895ffffffff021caa3900000000001976a914ddaccd2403cfffad5936ca66c2c6a7c98146936888ac9b593001000000001976a91461752641b0bf1cecd08341224f83e690853abd0588ac00000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"txid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fdcd3564c09ddd33dafd9d1bd2f5dc583f8c818fff631397c7f6d0d12ecf17b4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fdcd3564c09ddd33dafd9d1bd2f5dc583f8c818fff631397c7f6d0d12ecf17b4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">226</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vsize"</span><span class="p">:</span><span class="w"> </span><span class="mi">226</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Consumers must subscribe to an Encoded Listener API instance to start receiving blockchain
@@ -252,62 +269,163 @@ This allows any consumer to subscribe to and receive listener blockchain event d
 ACES Encoded Listener provider needs more security around subscriptions, they can host
 their instance on private network or implement <code>HTTP Basic Auth</code> for their web server and
 require consumers to send an <code>Authorization</code> header with valid credentials.</p>
-<h1 id='pagination'>Pagination</h1>
-<p>todo:</p>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+<h1 id='pagination'>Pagination</h1><pre class="highlight shell tab-shell"><code><span class="nv">url</span><span class="o">=</span><span class="s2">"http://localhost/subscriptions/3985723987423/events"</span>
+<span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="nv">$url</span><span class="s2">?pageSize=100"</span>
+<span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="nv">$url</span><span class="s2">&amp;page=4"</span>
+<span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="nv">$url</span><span class="s2">&amp;continuation=839729837520395702375023"</span>
+curl -X GET <span class="s2">"</span><span class="nv">$url</span><span class="s2">"</span>  
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"continuation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"933502938509238509283059"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/handler"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"minConfirmations"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-01T00:00:00.000Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>A <code>GET</code> request that returns a list of unbound items will be paginated
+in a way to return only a small number of items per page.</p>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>Clients can request additional pages by performing additional <code>GET</code>
+requests to retrieve the next page.</p>
+
+<p>Page number is zero-offset such that the first page has <code>page = 0</code>.</p>
+
+<p>The page response contains a <code>continuation</code> property that can be added
+to <code>GET</code> requests for the next page to stabilize pagination offsets.
+Including the continuation parameter ensures that newly added items
+will not shift down items in the next page. This allows pages to be
+iterated over without encountering repeat elements as elements are
+added.</p>
+<h1 id='errors'>Errors</h1>
+<p>ACES Encoded Listener API instances can return a set of standard HTTP errors classified by
+the response HTTP Status code.</p>
+
+<p>An request body validation error returns a <code>400</code> HTTP Status Code and an error response body
+with a detailed description of field validation errors. Consumers should correct the request
+before resubmitting the request.</p>
+
+<p>Any <code>5xx</code> level errors can be retried without making changes to the request since they
+are returned when there is something wrong with the server and not the consumer&#39;s request.</p>
+<h3 id='status-codes'>Status Codes</h3>
+<p>ACES Encoded Listener API instances return errors responses with the following HTTP Status codes:</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>HTTP Code</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request sucks.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>The request was invalid. The consumer should read error messages and correct the request body before resending request.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>The requested resource was not found.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>The URL in the request does not support the requested HTTP method.</td>
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too many requests have been sent over a given time frame and the server has limited the consumer.</td>
 </tr>
 <tr>
 <td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+<td>The server had an unexpected error. Consumers should try the request again later.</td>
 </tr>
 <tr>
 <td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>The server is running, but not currently accepting traffic. Consumers should try the request again later.</td>
+</tr>
+</tbody></table>
+<h3 id='general-errors'>General Errors</h3>
+<blockquote>
+<p>Example error response:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'http://localhost/subscriptions/123456/unsubcriptions'</span> <span class="se">\</span>
+  -X POST 
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alreadyUnsubscribed"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Subscription has already been unsubscribed."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Errors always return an error code and human readable error message.
+Consumers should handle any expected errors for an API call using the error <code>code</code> value.</p>
+<h3 id='general-error-codes'>General Error Codes</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>notFound</td>
+<td>The requested resource was not found.</td>
+</tr>
+<tr>
+<td>invalidRequest</td>
+<td>The request body is invalid. See <code>Validation Errors</code> below.</td>
+</tr>
+</tbody></table>
+<h3 id='validation-errors'>Validation Errors</h3>
+<blockquote>
+<p>Example error response:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'http://localhost/subscriptions'</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -d <span class="s1">'{
+     "host": "not-a-url"
+  }'</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidRequest"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Request is invalid."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fieldErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"host"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidUrl"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The url given is invalid."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"minConfirmations"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"required"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Min confirmations is required."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Validation errors have http status code = <code>400</code> and a response body error code = <code>invalidRequest</code>.
+Any field validation errors are returned in the <code>fieldErrors</code> list and include the field name corresponding
+to the request parameter, validation error code, and human-readable message for the field error.</p>
+<h3 id='field-error-codes'>Field Error Codes</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>required</td>
+<td>The field value is required.</td>
+</tr>
+<tr>
+<td>invalidUrl</td>
+<td>The given URL value is invalid.</td>
+</tr>
+<tr>
+<td>tooShort</td>
+<td>The field value given is too short.</td>
+</tr>
+<tr>
+<td>tooLong</td>
+<td>The field value given is too long.</td>
 </tr>
 </tbody></table>
 <h1 id='versions'>Versions</h1>
