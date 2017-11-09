@@ -274,6 +274,14 @@ require consumers to send an <code>Authorization</code> header with valid creden
 <span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="nv">$url</span><span class="s2">&amp;page=4"</span>
 <span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="nv">$url</span><span class="s2">&amp;continuation=839729837520395702375023"</span>
 curl -X GET <span class="s2">"</span><span class="nv">$url</span><span class="s2">"</span>  
+</code></pre><pre class="highlight java tab-java"><code><span class="n">EncodedListenerClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EncodedListenerClient</span><span class="o">(</span><span class="s">"http://localhost"</span><span class="o">);</span>
+
+<span class="n">SubscriptionPageRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubscriptionPageRequest</span><span class="o">();</span>
+<span class="n">request</span><span class="o">.</span><span class="na">setPageSize</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+<span class="n">request</span><span class="o">.</span><span class="na">setPage</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+<span class="n">request</span><span class="o">.</span><span class="na">setContinuation</span><span class="o">(</span><span class="s">"933502938509238509283059"</span><span class="o">);</span>
+
+<span class="n">Page</span><span class="o">&lt;</span><span class="n">Subscription</span><span class="o">&gt;</span> <span class="n">subscriptionsPage</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getSubscriptionsPage</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
 </code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
