@@ -53,7 +53,7 @@ If the consumer fails to respond to the `POST` with a `200` response (for exampl
 an error processing the event or the server times out), the Encoded Listener will try to resend
 the request as configured by the Encoded Listener.
 
-<img src="images/figures/aces-encoded-listener-overview.png" alt="Encoded Listener Sequence Diagram" />
+<img src="images/figures/encoded-listener-seq-diagram.png" alt="Encoded Listener Sequence Diagram" />
 
 If the Encoded Listener tries to post too many events to a consumer without success,
 the Encoded Listener can cancel the subscription and stop sending events to the consumer.
