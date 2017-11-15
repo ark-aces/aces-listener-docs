@@ -250,7 +250,7 @@ event.</p>
 an error processing the event or the server times out), the Encoded Listener will try to resend
 the request as configured by the Encoded Listener.</p>
 
-<p><img src="images/figures/aces-encoded-listener-overview.png" alt="Encoded Listener Sequence Diagram" /></p>
+<p><img src="images/figures/encoded-listener-seq-diagram.png" alt="Encoded Listener Sequence Diagram" /></p>
 
 <p>If the Encoded Listener tries to post too many events to a consumer without success,
 the Encoded Listener can cancel the subscription and stop sending events to the consumer.</p>
@@ -290,7 +290,11 @@ This allows any consumer to subscribe to and receive listener blockchain event d
 ACES Encoded Listener provider needs more security around subscriptions, they can host
 their instance on private network or implement <code>HTTP Basic Auth</code> for their web server and
 require consumers to send an <code>Authorization</code> header with valid credentials.</p>
-<h1 id='pagination'>Pagination</h1><pre class="highlight shell tab-shell"><code><span class="nv">url</span><span class="o">=</span><span class="s2">"http://localhost/subscriptions/3985723987423/events"</span>
+<h1 id='pagination'>Pagination</h1>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="nv">url</span><span class="o">=</span><span class="s2">"http://localhost/subscriptions/3985723987423/events"</span>
 <span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="nv">$url</span><span class="s2">?pageSize=100"</span>
 <span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="nv">$url</span><span class="s2">&amp;page=4"</span>
 <span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="nv">$url</span><span class="s2">&amp;continuation=839729837520395702375023"</span>
@@ -303,7 +307,11 @@ curl -X GET <span class="s2">"</span><span class="nv">$url</span><span class="s2
 <span class="n">request</span><span class="o">.</span><span class="na">setContinuation</span><span class="o">(</span><span class="s">"933502938509238509283059"</span><span class="o">);</span>
 
 <span class="n">Page</span><span class="o">&lt;</span><span class="n">Subscription</span><span class="o">&gt;</span> <span class="n">subscriptionsPage</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getSubscriptionsPage</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
-</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"continuation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"933502938509238509283059"</span><span class="p">,</span><span class="w">
@@ -379,9 +387,7 @@ are returned when there is something wrong with the server and not the consumer&
 <blockquote>
 <p>Example error response:</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s1">'http://localhost/subscriptions/123456/unsubcriptions'</span> <span class="se">\</span>
-  -X POST 
-</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alreadyUnsubscribed"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Subscription has already been unsubscribed."</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -406,14 +412,18 @@ Consumers should handle any expected errors for an API call using the error <cod
 </tbody></table>
 <h3 id='validation-errors'>Validation Errors</h3>
 <blockquote>
-<p>Example error response:</p>
+<p>Example error request:</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl <span class="s1">'http://localhost/subscriptions'</span> <span class="se">\</span>
   -X POST <span class="se">\</span>
   -d <span class="s1">'{
      "callbackUrl": "not-a-url"
   }'</span>
-</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</code></pre>
+<blockquote>
+<p>Example error response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidRequest"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Request is invalid."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"fieldErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -471,25 +481,34 @@ breaking client integrations. ACES defines backwards compatible changes as any o
 <p>If breaking changes to the Encoded Listener must be made, the provider needs to launch a new
 version in parallel at a different URL and have clients re-subscribe to the new version URL. </p>
 <h1 id='api-reference'>API Reference</h1><h1 id='subscriptions'>Subscriptions</h1>
-<p>The Subscribers endpoint allows subscriber to register their node to receive blockchain events from the Encoded Listener.</p>
-<h2 id='create-a-subscription'>Create a Subscription</h2><pre class="highlight shell tab-shell"><code>    curl -X POST <span class="s1">'http://localhost:8080/subscriptions'</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code>    <span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
-    <span class="nx">request</span><span class="p">(</span>
-        <span class="s1">'http://localhost:8080/subscriptions/'</span><span class="p">,</span> 
-        <span class="p">{</span> <span class="na">json</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span> 
-        <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">explanation</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">);</span>
+<p>The Subscribers endpoint allows subscriber to register their node to receive 
+blockchain events from the Encoded Listener.</p>
+<h2 id='create-a-subscription'>Create a Subscription</h2>
+<blockquote>
+<p>Example create Subscription request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'http://localhost/subscriptions'</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -d <span class="s1">'{
+    "callbackUrl": "http://consumer.domain.com/handler",
+    "minConfirmations": 5
+  }'</span>
+</code></pre><pre class="highlight java tab-java"><code><span class="n">EncodedListenerClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EncodedListenerClient</span><span class="o">(</span><span class="s">"http://localhost"</span><span class="o">);</span>
+
+<span class="n">SubscriptionRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubscriptionRequest</span><span class="o">();</span>
+<span class="n">request</span><span class="o">.</span><span class="na">setCallbackUrl</span><span class="o">(</span><span class="s">"http://consumer.domain.com/handler"</span><span class="o">);</span>
+<span class="n">request</span><span class="o">.</span><span class="na">setMinConfirmations</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+
+<span class="n">Subscription</span> <span class="n">subscription</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">createSubscription</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
 </code></pre>
 <blockquote>
 <p>Returned response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"329857298735983"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-08T05:34:54.267Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"329857298735983"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-08T05:34:54.267Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>The request to create a new Subscription.</p>
 <h3 id='parameters'>Parameters</h3>
@@ -512,16 +531,23 @@ version in parallel at a different URL and have clients re-subscribe to the new 
 </tr>
 </tbody></table>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST http://localhost:8080/subscriptions</code></p>
-<h2 id='get-a-subscription'>Get a Subscription</h2><pre class="highlight shell tab-shell"><code>    curl -X GET <span class="s1">'http://localhost/subscriptions/{id}'</span>
+<p><code>POST http://localhost/subscriptions</code></p>
+<h2 id='get-a-subscription'>Get a Subscription</h2>
+<blockquote>
+<p>Example get Subscription request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'http://localhost/subscriptions/1c2ddeb7-cf74-478d-8f77-2f326b8c2db4'</span>
+</code></pre><pre class="highlight java tab-java"><code><span class="n">EncodedListenerClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EncodedListenerClient</span><span class="o">(</span><span class="s">"http://localhost:8080"</span><span class="o">);</span>
+<span class="n">Subscription</span> <span class="n">subscription</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getSubscription</span><span class="o">(</span><span class="s">"1c2ddeb7-cf74-478d-8f77-2f326b8c2db4"</span><span class="o">);</span>
 </code></pre>
 <blockquote>
 <p>Returned response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"callbackUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"329857298735983"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"minConfirmations"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1c2ddeb7-cf74-478d-8f77-2f326b8c2db4"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"callbackUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://consumer.domain.com/handler"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"minConfirmations"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Get a Subscription by identifier.</p>
 <h3 id='parameters-2'>Parameters</h3>
@@ -535,7 +561,7 @@ version in parallel at a different URL and have clients re-subscribe to the new 
 </tr>
 </thead><tbody>
 <tr>
-<td>name</td>
+<td>id</td>
 <td>path</td>
 <td>string</td>
 <td>True</td>
@@ -544,26 +570,39 @@ version in parallel at a different URL and have clients re-subscribe to the new 
 </tbody></table>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET http://localhost:8080/subscriptions/{id}</code></p>
-<h1 id='event'>Event</h1><h2 id='list-subscription-events'>List Subscription Events</h2><pre class="highlight shell tab-shell"><code>  curl -X GET <span class="s1">'http://localhost:8080/subscriptions/{id}/events'</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code>  <span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
-  <span class="nx">request</span><span class="p">(</span>
-      <span class="s1">'http://localhost:8080/subscriptions/'</span> <span class="o">+</span> <span class="nx">subscriptionId</span> <span class="o">+</span> <span class="s1">'/events'</span><span class="p">,</span> 
-      <span class="p">{</span> <span class="na">json</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span> 
-      <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">explanation</span><span class="p">);</span>
-      <span class="p">}</span>
-  <span class="p">);</span>
+<h1 id='event'>Event</h1><h2 id='list-subscription-events'>List Subscription Events</h2>
+<blockquote>
+<p>Example list Subscriptions request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'http://localhost/subscriptions/1c2ddeb7-cf74-478d-8f77-2f326b8c2db4/events'</span>
+</code></pre><pre class="highlight java tab-java"><code><span class="n">EncodedListenerClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EncodedListenerClient</span><span class="o">(</span><span class="s">"http://localhost"</span><span class="o">);</span>
+<span class="n">Page</span><span class="o">&lt;</span><span class="n">Subscription</span><span class="o">&gt;</span> <span class="n">subscriptionsPage</span> <span class="o">=</span> 
+    <span class="n">client</span><span class="o">.</span><span class="na">getSubscriptionsPage</span><span class="o">(</span><span class="s">"1c2ddeb7-cf74-478d-8f77-2f326b8c2db4"</span><span class="o">);</span>
 </code></pre>
 <blockquote>
 <p>Returned response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"continuation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"933502938509238509283059"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"329857298735983"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-08T05:34:54.267Z"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delivered"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"tries"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data"</span><span class="w">
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"hex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01000000019a9aa57825106e72c92c0c771b88a9f7bbdd399d12e405e29757964f9a387ef0000000006b483045022100fdac2e51068717da7f564ae676d84f04aa6e5157b72c168301809518bc8e733902200b39ba9d0ee8cd0c5f0ed7a4d51ec2aaf5976252aeca6ffd5b9794076898c463012102892589b5b0e2751bd2500a71f06b2d851439678eb0e976be5b5a0cc8f3e49895ffffffff021caa3900000000001976a914ddaccd2403cfffad5936ca66c2c6a7c98146936888ac9b593001000000001976a91461752641b0bf1cecd08341224f83e690853abd0588ac00000000"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"txid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fdcd3564c09ddd33dafd9d1bd2f5dc583f8c818fff631397c7f6d0d12ecf17b4"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fdcd3564c09ddd33dafd9d1bd2f5dc583f8c818fff631397c7f6d0d12ecf17b4"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">226</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"vsize"</span><span class="p">:</span><span class="w"> </span><span class="mi">226</span><span class="p">,</span><span class="w">
+          </span><span class="err">...</span><span class="w">
+        </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Gets a page of Subscription Events.</p>
 <h3 id='parameters-3'>Parameters</h3>
@@ -611,24 +650,19 @@ version in parallel at a different URL and have clients re-subscribe to the new 
 </tr>
 </tbody></table>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET http://localhost:8080/subscriptions/{id}/events</code></p>
-<h1 id='unsubscribe'>Unsubscribe</h1><h2 id='create-an-unsubscribe'>Create an Unsubscribe</h2><pre class="highlight shell tab-shell"><code>  curl -X POST <span class="s1">'http://localhost:8080/subscriptions/{id}/unsubscribes'</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code>  <span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
-  <span class="nx">request</span><span class="p">(</span>
-      <span class="s1">'http://localhost:8080/subscriptions/'</span> <span class="o">+</span> <span class="nx">subscriptionId</span> <span class="o">+</span> <span class="s1">'/unsubscribes'</span><span class="p">,</span> 
-      <span class="p">{</span> <span class="na">json</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span> 
-      <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">explanation</span><span class="p">);</span>
-      <span class="p">}</span>
-  <span class="p">);</span>
+<p><code>GET http://localhost/subscriptions/{id}/events</code></p>
+<h1 id='unsubscribe'>Unsubscribe</h1><h2 id='create-an-unsubscribe'>Create an Unsubscribe</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s1">'http://localhost/subscriptions/{id}/unsubscribes'</span>
+</code></pre><pre class="highlight java tab-java"><code><span class="n">EncodedListenerClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EncodedListenerClient</span><span class="o">(</span><span class="s">"http://localhost"</span><span class="o">);</span>
+<span class="n">Unsubscribe</span> <span class="n">unsubscribe</span> <span class="o">=</span> 
+    <span class="n">client</span><span class="o">.</span><span class="na">createUnsubscription</span><span class="o">(</span><span class="s">"1c2ddeb7-cf74-478d-8f77-2f326b8c2db4"</span><span class="o">);</span>
 </code></pre>
 <blockquote>
 <p>Returned response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"329857298735983"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-08T05:34:54.267Z"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"329857298735983"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-08T05:34:54.267Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Unsubscribes an active Subscription.</p>
 <h3 id='parameters-4'>Parameters</h3>
@@ -650,19 +684,25 @@ version in parallel at a different URL and have clients re-subscribe to the new 
 </tr>
 </tbody></table>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>POST http://localhost:8080/subscriptions/{id}/unsubscribes</code></p>
-<h1 id='health'>Health</h1><h2 id='get-health-of-node'>Get Health of node.</h2><pre class="highlight shell tab-shell"><code>    curl -X GET <span class="s1">'http://localhost:8080/status'</span>
+<p><code>POST http://localhost/subscriptions/{id}/unsubscribes</code></p>
+<h1 id='health'>Health</h1><h2 id='get-health-of-node'>Get Health of node.</h2>
+<blockquote>
+<p>Example get Health request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET <span class="s1">'http://localhost/status'</span>
+</code></pre><pre class="highlight java tab-java"><code><span class="n">EncodedListenerClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EncodedListenerClient</span><span class="o">(</span><span class="s">"http://localhost"</span><span class="o">);</span>
+<span class="n">Health</span> <span class="n">health</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getHealth</span><span class="o">();</span>
 </code></pre>
 <blockquote>
 <p>Returned response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"up"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"up"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Get application health information.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>GET http://localhost:8080/status</code></p>
+<p><code>GET http://localhost/status</code></p>
 
       </div>
       <div class="dark-box">
