@@ -29,12 +29,6 @@ HTTP Code | Description
 
 > Example error response:
 
-
-```shell
-curl 'http://localhost/subscriptions/123456/unsubcriptions' \
-  -X POST 
-```
-
 ```json
 {
   "code": "alreadyUnsubscribed",
@@ -59,15 +53,6 @@ invalidRequest    | The request body is invalid. See `Validation Errors` below.
 ### Validation Errors
 
 > Example error response:
-
-```shell
-curl 'http://localhost/subscriptions' \
-  -X POST \
-  -d '{
-     "callbackUrl": "not-a-url"
-  }'
-```
-
 
 ```json
 {

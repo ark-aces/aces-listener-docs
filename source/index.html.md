@@ -30,5 +30,5 @@ The ACES Listener API provides a way for all the different blockchain transactio
  be easily consumed via a common REST-ful API. The API allows consumers to create subscriptions 
  and receive blockchain events in real-time using Webhook callbacks.
 
-<img src="images/figures/aces-listeners.png" alt="ACES Listener Figure" />
+<img src="images/figures/aces-listeners-styled.png" alt="ACES Listener Figure" />
 

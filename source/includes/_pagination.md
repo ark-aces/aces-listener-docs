@@ -1,6 +1,8 @@
 
 # Pagination
 
+> Example request:
+
 ```shell
 url="http://localhost/subscriptions/3985723987423/events"
 url="$url?pageSize=100"
@@ -11,7 +13,7 @@ curl -X GET "$url"
 
 ```java
 ApiClient apiClient = new ApiClient();
-apiClient.setBasePath("localhost");
+apiClient.setBasePath("http://localhost");
 AcesListenerApi api = new AcesListenerApi(apiClient);
 
 SubscriptionPageRequest request = new SubscriptionPageRequest();
@@ -21,6 +23,8 @@ request.setContinuation("933502938509238509283059");
 
 Page<Subscription> subscriptionsPage = api.getSubscriptionsPage(request);
 ```
+
+> Example response:
 
 ```json
 {
