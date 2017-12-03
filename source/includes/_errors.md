@@ -1,6 +1,6 @@
 # Errors
 
-ACES Encoded Listener API instances can return a set of standard HTTP errors classified by
+ACES Listener API instances can return a set of standard HTTP errors classified by
 the response HTTP Status code.
 
 An request body validation error returns a `400` HTTP Status Code and an error response body
@@ -13,7 +13,7 @@ are returned when there is something wrong with the server and not the consumer'
 
 ### Status Codes
 
-ACES Encoded Listener API instances return errors responses with the following HTTP Status codes:
+ACES Listener API instances return errors responses with the following HTTP Status codes:
 
 HTTP Code | Description
 ---------- | -----------

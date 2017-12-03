@@ -10,14 +10,16 @@ curl -X GET "$url"
 ```
 
 ```java
-EncodedListenerClient client = new EncodedListenerClient("http://localhost");
+ApiClient apiClient = new ApiClient();
+apiClient.setBasePath("localhost");
+AcesListenerApi api = new AcesListenerApi(apiClient);
 
 SubscriptionPageRequest request = new SubscriptionPageRequest();
 request.setPageSize(100);
 request.setPage(4);
 request.setContinuation("933502938509238509283059");
 
-Page<Subscription> subscriptionsPage = client.getSubscriptionsPage(request);
+Page<Subscription> subscriptionsPage = api.getSubscriptionsPage(request);
 ```
 
 ```json

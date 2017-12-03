@@ -2,7 +2,7 @@
 # Overview
 
 ```shell
-curl 'http://bitcoin-encoded-listener.domain.com' \
+curl 'http://aces-listener-bitcoin.domain.com' \
 -X POST \
 -d '{
    "callbackUrl": "http://consumer.domain.com/handler",
@@ -11,18 +11,18 @@ curl 'http://bitcoin-encoded-listener.domain.com' \
 ```
 
 ```java
-EncodedListenerClient client = new EncodedListenerClient(
-    "http://bitcoin-encoded-listener.domain.com"
-);
+ApiClient apiClient = new ApiClient();
+apiClient.setBasePath("http://aces-listener-bitcoin.domain.com");
+AcesListenerApi api = new AcesListenerApi(apiClient);
 
 SubscriptionRequest request = new SubscriptionRequest();
 request.setCallbackUrl("http://consumer.domain.com/handler");
 request.setMinConfirmations(5);
 
-client.createSubscription(request);
+api.createSubscription(request);
 ```
 
-> After subscribing, the Encoded Listener will `POST` Bitcoin transaction data to the
+> After subscribing, the ACES Listener will `POST` Bitcoin transaction data to the
  to `http://consumer.domain.com/handler`:
   
 ```json
@@ -42,24 +42,24 @@ client.createSubscription(request);
 }
 ```
 
-Consumers must subscribe to an Encoded Listener API instance to start receiving blockchain
-events from the Encoded Listener.
+Consumers must subscribe to an ACES Listener API instance to start receiving blockchain
+events from the ACES Listener.
 
-Once a consumer has been subscribed, the Encoded Listener will start
+Once a consumer has been subscribed, the ACES Listener will start
 sending `POST` requests to the registered endpoint for every new blockchain transaction
 event.
 
 If the consumer fails to respond to the `POST` with a `200` response (for example if there is
-an error processing the event or the server times out), the Encoded Listener will try to resend
-the request as configured by the Encoded Listener.
+an error processing the event or the server times out), the ACES Listener will try to resend
+the request as configured by the ACES Listener.
 
-<img src="images/figures/encoded-listener-seq-diagram.png" alt="Encoded Listener Sequence Diagram" />
+<img src="images/figures/aces-listener-seq-diagram.png" alt="ACES Listener Sequence Diagram" />
 
-If the Encoded Listener tries to post too many events to a consumer without success,
-the Encoded Listener can cancel the subscription and stop sending events to the consumer.
+If the ACES Listener tries to post too many events to a consumer without success,
+the ACES Listener can cancel the subscription and stop sending events to the consumer.
 
 Consumers can also unsubscribe directly by sending a `POST` request to the Unsubscribe
 endpoint.
 
-Developers of Encoded Listener APIs can view our sample
-[Ark Encoded Listener implementation](https://github.com/ark-aces/aces-encoded-listener-ark).
+Developers of ACES Listener APIs can view our sample
+[ACES Listener Ark implementation](https://github.com/ark-aces/aces-listener-ark).
